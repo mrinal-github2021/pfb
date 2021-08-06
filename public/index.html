@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Whitehat Jr</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script type="text/javascript" src="jquery-1.11.1.js"></script>
+	<script type="text/javascript" src="jquery.validate.js"></script>
+
+  </head>
+  <body onload="getUserData()">
+  <div class="testbox"><a href="users_list.html">View Users</a></div>
+    <div class="testbox">
+			
+      <form id="frmAddRecord" name="frmAddRecord" method="post" action="users_list.html">
+       
+        <div class="item">
+          <label for="name">User ID<span>*</span></label>
+          <div class="name-item">
+            <input  class="user-input" id="frmUserId" type="text" name="frmUserId"  value="" readonly />
+           
+          </div>
+        </div>
+        <div class="item">
+          <label for="frmName">Name<span>*</span></label>
+          <input class="user-input" id="frmName" type="text" name="frmName" />
+        </div>
+		<div class="item">
+          <label for="frmAge">Age<span>*</span></label>
+          <input  class="user-input" id="frmAge" type="text" name="frmAge"/>
+        </div>        
+        <div class="item">
+          <label for="frmHobbies">Hobbies</label>
+          <textarea  class="user-input" id="frmHobbies" name="frmHobbies" rows="3"></textarea>
+        </div>
+		<div class="item">
+          <label for="frmInterests">Interests</label>
+         <select class="user-input" id="frmInterests">
+			<option value="Technology">Technology</option>
+			<option value="Environment">Environment</option>
+			<option value="Sports">Sports</option>
+		 </select>
+        </div>
+        <div class="btn-block">
+          <button type="submit" id="btnSubmit" >Add</button>
+        </div>
+      </form>
+    </div>
+  </body>
+
+<link rel="stylesheet" href="style.css">
+
+
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-functions.js"></script>
+
+
+<script src="require.js"></script>
+
+
+<script  src="script.js"></script>
+<script  src="app2.js"></script>
+
+<script type="text/javascript">
+$.validator.setDefaults( {
+			submitHandler: function () {
+				//alert( "submitted!" );
+				sendInfo();
+			}
+		} );
+$(document).ready(function(){
+
+		$("#frmAddRecord").validate({
+				rules: {
+					frmName: "required",
+					
+					frmAge: {
+						required: true,
+						number: true
+						
+					},
+					frmHobbies: {
+						required: true
+						
+					}
+					
+				},
+				messages: {
+					frmName: "Please enter your name",
+					
+					frmAge: {
+						required: "Please enter a age",
+						number: "Your age must a numeric value"
+					},
+					frmHobbies: {
+						required: "Please enter some hobbies"
+						
+					}
+					
+				},
+				errorClass: "error",
+				errorElement: "em",
+				errorPlacement: function ( error, element ) {
+					// Add the `help-block` class to the error element
+					error.addClass( "help-block" );
+
+					if ( element.prop( "type" ) === "checkbox" ) {
+						error.insertAfter( element.parent( "label" ) );
+					} else {
+						error.insertAfter( element );
+					}
+				},
+				highlight: function ( element, errorClass, validClass ) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-error" ).removeClass( "has-success" );
+				},
+				unhighlight: function (element, errorClass, validClass) {
+					$( element ).parents( ".col-sm-5" ).addClass( "has-success" ).removeClass( "has-error" );
+				}
+				
+			} );
+});
+</script>
+	
+</html>
